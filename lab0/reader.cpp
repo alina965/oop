@@ -1,7 +1,11 @@
 #include "reader.h"
 
-Reader::Reader(string& filename): input_file_(filename) { }
-bool Reader::Read(string& line) {
-    if (getline(input_file_, line)) return true;
-    return false;
+Reader::Reader(std::string& filename): input_file_(filename) { }
+
+Reader::~Reader() {
+    input_file_.close();
+}
+
+bool Reader::Read(std::string& line) {
+    return static_cast<bool>(getline(input_file_, line));
 }

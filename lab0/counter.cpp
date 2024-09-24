@@ -1,31 +1,27 @@
 #include "counter.h"
 #include <algorithm>
 
-void Counter::Count(string &line) {
-    string word;
+void Counter::Count(std::string &line) {
+    std::string word;
     for (auto& symbol : line) {
         if (isalpha(symbol) || isdigit(symbol)) word += symbol;
-        else {
-            if (!word.empty()) {
-                num_of_words_ += 1;
-                frequency_[word] += 1;
+        else if (!word.empty()) {
+                num_of_words_++;
+                frequency_[word]++;
                 word = "";
-            }
         }
     }
     if (!word.empty()) {
-        num_of_words_ += 1;
-        frequency_[word] += 1;
+        num_of_words_++;
+        frequency_[word]++;
     }
 }
 
-bool Counter::Compare(const pair<string, int> &a, const pair<string, int> &b) {
-    return a.second > b.second;
-}
-
-vector<pair<string, int>> Counter::GetSortedFrequency() {
-    vector<pair<string, int>> sorted_frequency(frequency_.begin(), frequency_.end());
-    sort(sorted_frequency.begin(), sorted_frequency.end(), Compare);
+std::vector<std::pair<std::string, int>> Counter::GetSortedFrequency() {
+    std::vector<std::pair<std::string, int>> sorted_frequency(frequency_.begin(), frequency_.end());
+    sort(sorted_frequency.begin(), sorted_frequency.end(), [](const auto &a, const auto &b) {
+        return a.second > b.second;
+    });
     return sorted_frequency;
 }
 
