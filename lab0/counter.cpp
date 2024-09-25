@@ -20,8 +20,10 @@ void Counter::Count(std::string &line) {
 std::vector<std::pair<std::string, int>> Counter::GetSortedFrequency() {
     std::vector<std::pair<std::string, int>> sorted_frequency(frequency_.begin(), frequency_.end());
     sort(sorted_frequency.begin(), sorted_frequency.end(), [](const auto &a, const auto &b) {
+        if (a.second == b.second) return a.first < b.first;
         return a.second > b.second;
     });
+
     return sorted_frequency;
 }
 

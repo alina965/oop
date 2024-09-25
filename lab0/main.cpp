@@ -13,14 +13,16 @@ int main(int argc, char* argv[]) {
 
     Reader reader(input_file);
     Counter counter;
-    Writer writer(output_file);
 
     std::string line;
     while (reader.Read(line)) {
         counter.Count(line);
     }
+
     int num_of_words = counter.GetNumOfWords();
     std::vector<std::pair<std::string, int>> sorted_frequency = counter.GetSortedFrequency();
+
+    Writer writer(output_file);
     writer.Write(sorted_frequency, num_of_words);
     return 0;
 }
