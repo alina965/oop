@@ -1,2 +1,8 @@
-lab0/cmake-build-debug
-lab0/.idea
+**/cmake-build-debug
+**/.idea
+**/build
+**/googletest
+*.out
+*.gcda
+*.gcno
+*.info
