@@ -31,18 +31,18 @@
             <td class="headerValue">gcd.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">63</td>
-            <td class="headerCovTableEntry">82</td>
-            <td class="headerCovTableEntryMed">76.8 %</td>
+            <td class="headerCovTableEntry">60</td>
+            <td class="headerCovTableEntry">79</td>
+            <td class="headerCovTableEntryMed">75.9 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-10-09 17:43:56</td>
+            <td class="headerValue">2024-10-11 22:08:04</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">31</td>
-            <td class="headerCovTableEntry">41</td>
-            <td class="headerCovTableEntryMed">75.6 %</td>
+            <td class="headerCovTableEntry">30</td>
+            <td class="headerCovTableEntry">40</td>
+            <td class="headerCovTableEntryMed">75.0 %</td>
           </tr>
           <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -211,7 +211,7 @@
 <a name="149"><span class="lineNum">     149 </span>            :   template&lt;typename _ForwardIterator1, typename _ForwardIterator2&gt;</a>
 <a name="150"><span class="lineNum">     150 </span>            :     _GLIBCXX20_CONSTEXPR</a>
 <a name="151"><span class="lineNum">     151 </span>            :     inline void</a>
-<a name="152"><span class="lineNum">     152 </span><span class="lineCov">        115 :     iter_swap(_ForwardIterator1 __a, _ForwardIterator2 __b)</span></a>
+<a name="152"><span class="lineNum">     152 </span>            :     iter_swap(_ForwardIterator1 __a, _ForwardIterator2 __b)</a>
 <a name="153"><span class="lineNum">     153 </span>            :     {</a>
 <a name="154"><span class="lineNum">     154 </span>            :       // concept requirements</a>
 <a name="155"><span class="lineNum">     155 </span>            :       __glibcxx_function_requires(_Mutable_ForwardIteratorConcept&lt;</a>
@@ -241,9 +241,9 @@
 <a name="179"><span class="lineNum">     179 </span>            : #else</a>
 <a name="180"><span class="lineNum">     180 </span>            :       // _GLIBCXX_RESOLVE_LIB_DEFECTS</a>
 <a name="181"><span class="lineNum">     181 </span>            :       // 187. iter_swap underspecified</a>
-<a name="182"><span class="lineNum">     182 </span><span class="lineCov">        115 :       swap(*__a, *__b);</span></a>
+<a name="182"><span class="lineNum">     182 </span>            :       swap(*__a, *__b);</a>
 <a name="183"><span class="lineNum">     183 </span>            : #endif</a>
-<a name="184"><span class="lineNum">     184 </span><span class="lineCov">        115 :     }</span></a>
+<a name="184"><span class="lineNum">     184 </span>            :     }</a>
 <a name="185"><span class="lineNum">     185 </span>            : </a>
 <a name="186"><span class="lineNum">     186 </span>            :   /**</a>
 <a name="187"><span class="lineNum">     187 </span>            :    *  @brief Swap the elements of two sequences.</a>

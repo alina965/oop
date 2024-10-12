@@ -216,7 +216,7 @@ public:
   /**
    * @brief Returns the number of bits in the array.
    *
-   * @return The size of the bit array.
+   * @return Number of bits.
    */
   int size() const;
 
@@ -256,6 +256,24 @@ private:
   int num_bits_; ///< The number of bits in the array.
   std::vector<unsigned long>
       bit_array_; ///< The underlying storage for the bits.
+
+  /**
+   * @brief Returns the size of the bit array.
+   *
+   * @param Number of bits.
+   * @return The size of the bit array.
+   */
+  int array_size(int num_bits) const;
+
+  /**
+   * @brief Returns the mask for the specified bit within a block.
+   *
+   * @param The index of the bit within the bit array.
+   * @return A mask with a single bit set at the required position.
+   *
+   * @throws std::out_of_range If the bit index is negative.
+   */
+  unsigned long bit_mask(int n) const;
 };
 
 /**

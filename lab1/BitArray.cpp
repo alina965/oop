@@ -8,9 +8,14 @@ BitArray::BitArray() : num_bits_(0) { }
 BitArray::~BitArray() = default;
 
 BitArray::BitArray(int num_bits, unsigned long value) : num_bits_(num_bits) {
-    if (num_bits < 0) throw std::invalid_argument("Number of bits must be non-negative");
-    bit_array_.resize((num_bits_ + BITS_PER_BLOCK - 1)/BITS_PER_BLOCK, 0UL);
-    if (num_bits_ > 0) bit_array_[0] = value;
+    if (num_bits < 0) {
+        throw std::invalid_argument("Number of bits must be non-negative");
+    }
+
+    bit_array_.resize(array_size(num_bits_), 0UL);
+    if (num_bits_ > 0) {
+        bit_array_[0] = value;
+    }
 }
 
 BitArray::BitArray(const BitArray &b) : num_bits_(b.num_bits_), bit_array_(b.bit_array_) { }
@@ -27,15 +32,20 @@ BitArray& BitArray::operator=(const BitArray& b) {
 }
 
 void BitArray::resize(int num_bits, bool value) {
-    if (num_bits < 0) throw std::invalid_argument("Number of bits must be non-negative");
-    bit_array_.resize((num_bits + BITS_PER_BLOCK - 1) / BITS_PER_BLOCK, value ? ~0U : 0U); // инициализация блоков
+    if (num_bits < 0) {
+        throw std::invalid_argument("Number of bits must be non-negative");
+    }
+
+    int new_size = array_size(num_bits);
+    bit_array_.resize(new_size, value ? ~0U : 0U); // инициализация блоков
 
     if (num_bits % BITS_PER_BLOCK != 0) { // инициализация битов по отдельности
         unsigned long mask = (~0UL << (num_bits_ % BITS_PER_BLOCK));
         if (value) {
-            bit_array_[(num_bits + BITS_PER_BLOCK - 1) / BITS_PER_BLOCK - 1] |= mask;
-        } else {
-            bit_array_[(num_bits + BITS_PER_BLOCK - 1) / BITS_PER_BLOCK - 1] &= ~mask;
+            bit_array_[new_size - 1] |= mask;
+        }
+        else {
+            bit_array_[new_size - 1] &= ~mask;
         }
     }
     num_bits_ = num_bits;
@@ -52,7 +62,10 @@ void BitArray::push_back(bool bit) {
 }
 
 BitArray& BitArray::operator&=(const BitArray& b) {
-    if (num_bits_ != b.num_bits_) throw std::invalid_argument("Arrays must have the same size");
+    if (num_bits_ != b.num_bits_) {
+        throw std::invalid_argument("Arrays must have the same size");
+    }
+
     for (int i = 0; i < bit_array_.size(); i++) {
         bit_array_[i] &= b.bit_array_[i];
     }
@@ -60,7 +73,10 @@ BitArray& BitArray::operator&=(const BitArray& b) {
 }
 
 BitArray& BitArray::operator|=(const BitArray& b) {
-    if (num_bits_ != b.num_bits_) throw std::invalid_argument("Arrays must have the same size");
+    if (num_bits_ != b.num_bits_) {
+        throw std::invalid_argument("Arrays must have the same size");
+    }
+
     for (int i = 0; i < bit_array_.size(); i++) {
         bit_array_[i] |= b.bit_array_[i];
     }
@@ -68,7 +84,10 @@ BitArray& BitArray::operator|=(const BitArray& b) {
 }
 
 BitArray& BitArray::operator^=(const BitArray& b) {
-    if (num_bits_ != b.num_bits_) throw std::invalid_argument("Arrays must have the same size");
+    if (num_bits_ != b.num_bits_) {
+        throw std::invalid_argument("Arrays must have the same size");
+    }
+
     for (int i = 0; i < bit_array_.size(); i++) {
         bit_array_[i] ^= b.bit_array_[i];
     }
@@ -76,32 +95,42 @@ BitArray& BitArray::operator^=(const BitArray& b) {
 }
 
 BitArray& BitArray::operator>>=(int n) {
-    if (n < 0) throw std::invalid_argument("Index must be non-negative");
+    if (n < 0) {
+        throw std::invalid_argument("Index must be non-negative");
+    }
+
     if (n >= num_bits_) {
         reset();
         return *this;
     }
+
     for (int i = 0; i < num_bits_ - n; i++) {
         set(i, (*this)[i + n]);
     }
     for (int i = num_bits_ - n; i < num_bits_; i++) {
         reset(i);
     }
+
     return *this;
 }
 
 BitArray & BitArray::operator<<=(int n) {
-    if (n < 0) throw std::invalid_argument("Index must be non-negative");
+    if (n < 0) {
+        throw std::invalid_argument("Index must be non-negative");
+    }
+
     if (n >= num_bits_) {
         reset();
         return *this;
     }
+
     for (int i = num_bits_ - 1; i >= n; i--) {
         set(i, (*this)[i - n]);
     }
     for (int i = 0; i < n; i++) {
         reset(i);
     }
+
     return *this;
 }
 
@@ -118,9 +147,17 @@ BitArray BitArray::operator>>(int n) const {
 }
 
 BitArray& BitArray::set(int n, bool val) {
-    if (n >= num_bits_ || n < 0) throw std::out_of_range("Index out of range");
-    if (val) bit_array_[n / BITS_PER_BLOCK] |= (1UL << (n % BITS_PER_BLOCK));
-    else bit_array_[n / BITS_PER_BLOCK] &= ~(1UL << (n % BITS_PER_BLOCK));
+    if (n >= num_bits_ || n < 0) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    if (val) {
+        bit_array_[n / BITS_PER_BLOCK] |= bit_mask(n);
+    }
+    else {
+        bit_array_[n / BITS_PER_BLOCK] &= ~bit_mask(n);
+    }
+
     return *this;
 }
 
@@ -128,16 +165,20 @@ BitArray& BitArray::set() {
     for (auto & element : bit_array_) {
         element = ~0UL;
     }
+
     if (num_bits_ % BITS_PER_BLOCK != 0) {
-        unsigned long mask = (1UL << (num_bits_ % BITS_PER_BLOCK)) - 1;
-        bit_array_[num_bits_ / BITS_PER_BLOCK] &= mask;
+        bit_array_[array_size(num_bits_) - 1] &= (bit_mask(num_bits_) - 1);
     }
+
     return *this;
 }
 
 BitArray& BitArray::reset(int n) {
-    if (n >= num_bits_ || n < 0) throw std::out_of_range("Index out of range");
-    bit_array_[n / BITS_PER_BLOCK] &= ~(1UL << (n % BITS_PER_BLOCK));
+    if (n >= num_bits_ || n < 0) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    bit_array_[n / BITS_PER_BLOCK] &= ~bit_mask(n);
     return *this;
 }
 
@@ -148,15 +189,21 @@ BitArray& BitArray::reset() {
 
 bool BitArray::any() const {
     for (auto& element : bit_array_) {
-        if (element) return true;
+        if (element) {
+            return true;
+        }
     }
+
     return false;
 }
 
 bool BitArray::none() const {
     for (auto& element : bit_array_) {
-        if (element) return false;
+        if (element) {
+            return false;
+        }
     }
+
     return true;
 }
 
@@ -165,23 +212,30 @@ BitArray BitArray::operator~() const {
     for (auto& element : result.bit_array_) {
         element = ~element;
     }
+
     if (num_bits_ % BITS_PER_BLOCK != 0) {
-        unsigned long mask = (1UL << (num_bits_ % BITS_PER_BLOCK)) - 1;
-        result.bit_array_[(num_bits_ + BITS_PER_BLOCK - 1) / BITS_PER_BLOCK - 1] &= mask;
+        result.bit_array_[array_size(num_bits_) - 1] &= bit_mask(num_bits_) - 1;
     }
+
     return result;
 }
 
 bool BitArray::operator[](int i) const {
-    if (i >= num_bits_ || i < 0) throw std::out_of_range("Index out of range");
-    return bit_array_[i / BITS_PER_BLOCK] & (1UL << (i % BITS_PER_BLOCK));
+    if (i >= num_bits_ || i < 0) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    return bit_array_[i / BITS_PER_BLOCK] & bit_mask(i);
 }
 
 int BitArray::count() const {
     int result = 0;
     for (int i = 0; i < num_bits_; i++) {
-        if ((*this)[i]) result++;
+        if ((*this)[i]) {
+            result++;
+        }
     }
+
     return result;
 }
 
@@ -195,10 +249,10 @@ bool BitArray::empty() const {
 
 std::string BitArray::to_string() const {
     std::string result;
-    for (int i = 0; i < num_bits_; i++) {
+    for (int i = num_bits_ - 1; i >= 0; i--) {
         result.push_back((*this)[i] ? '1' : '0');
     }
-    std::reverse(result.begin(), result.end());
+
     return result;
 }
 
@@ -206,8 +260,17 @@ bool operator==(const BitArray &a, const BitArray &b) {
     return ((a.num_bits_ == b.num_bits_) && (a.bit_array_ == b.bit_array_));
 }
 
-bool operator!=(const BitArray &a, const BitArray &b) {
-    return !(a == b);
+bool operator!=(const BitArray &a, const BitArray &b) { return !(a == b); }
+
+int BitArray::array_size(int num_bits) const {
+    return (num_bits + BITS_PER_BLOCK - 1) / BITS_PER_BLOCK;
+}
+
+unsigned long BitArray::bit_mask(int n) const {
+    if (n < 0) {
+        throw std::out_of_range("Bit index must be non-negative");
+    }
+    return 1UL << (n % BITS_PER_BLOCK);
 }
 
 BitArray operator&(const BitArray &b1, const BitArray &b2) {

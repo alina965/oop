@@ -31,18 +31,18 @@
             <td class="headerValue">gcd.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntry">13</td>
             <td class="headerCovTableEntry">21</td>
-            <td class="headerCovTableEntryLo">52.4 %</td>
+            <td class="headerCovTableEntryLo">61.9 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-10-09 17:43:56</td>
+            <td class="headerValue">2024-10-11 22:08:04</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">6</td>
-            <td class="headerCovTableEntry">10</td>
-            <td class="headerCovTableEntryLo">60.0 %</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntryLo">63.6 %</td>
           </tr>
           <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -621,8 +621,8 @@
 <a name="559"><span class="lineNum">     559 </span>            :        *  @return @c __rhs</a>
 <a name="560"><span class="lineNum">     560 </span>            :       */</a>
 <a name="561"><span class="lineNum">     561 </span>            :       static _GLIBCXX20_CONSTEXPR allocator_type</a>
-<a name="562"><span class="lineNum">     562 </span><span class="lineNoCov">          0 :       select_on_container_copy_construction(const allocator_type&amp; __rhs)</span></a>
-<a name="563"><span class="lineNum">     563 </span><span class="lineNoCov">          0 :       { return __rhs; }</span></a>
+<a name="562"><span class="lineNum">     562 </span><span class="lineCov">         12 :       select_on_container_copy_construction(const allocator_type&amp; __rhs)</span></a>
+<a name="563"><span class="lineNum">     563 </span><span class="lineCov">         12 :       { return __rhs; }</span></a>
 <a name="564"><span class="lineNum">     564 </span>            :     };</a>
 <a name="565"><span class="lineNum">     565 </span>            : </a>
 <a name="566"><span class="lineNum">     566 </span>            :   /// Explicit specialization for std::allocator&lt;void&gt;.</a>
@@ -904,11 +904,11 @@
 <a name="842"><span class="lineNum">     842 </span>            : </a>
 <a name="843"><span class="lineNum">     843 </span>            :   template&lt;typename _ForwardIterator, typename _Tp&gt;</a>
 <a name="844"><span class="lineNum">     844 </span>            :     inline void</a>
-<a name="845"><span class="lineNum">     845 </span><span class="lineCov">        115 :     _Destroy(_ForwardIterator __first, _ForwardIterator __last,</span></a>
+<a name="845"><span class="lineNum">     845 </span><span class="lineCov">        103 :     _Destroy(_ForwardIterator __first, _ForwardIterator __last,</span></a>
 <a name="846"><span class="lineNum">     846 </span>            :              allocator&lt;_Tp&gt;&amp;)</a>
 <a name="847"><span class="lineNum">     847 </span>            :     {</a>
-<a name="848"><span class="lineNum">     848 </span><span class="lineCov">        115 :       _Destroy(__first, __last);</span></a>
-<a name="849"><span class="lineNum">     849 </span><span class="lineCov">        115 :     }</span></a>
+<a name="848"><span class="lineNum">     848 </span><span class="lineCov">        103 :       _Destroy(__first, __last);</span></a>
+<a name="849"><span class="lineNum">     849 </span><span class="lineCov">        103 :     }</span></a>
 <a name="850"><span class="lineNum">     850 </span>            : </a>
 <a name="851"><span class="lineNum">     851 </span>            : _GLIBCXX_END_NAMESPACE_VERSION</a>
 <a name="852"><span class="lineNum">     852 </span>            : } // namespace std</a>
