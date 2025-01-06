@@ -1,0 +1,11 @@
+**/cmake-build-debug
+**/.idea
+**/build
+**/googletest
+**/out
+**/output
+*.out
+*.gcda
+*.gcno
+*.info
+*.json
