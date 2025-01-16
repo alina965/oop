@@ -24,6 +24,7 @@ private slots:
     void OnOfflineModeButtonClicked();
     void OnLoadUniverseButtonClicked();
     void OnSaveUniverseButtonClicked();
+    void OnRandomButtonClicked();
 private:
     Ui::MainWindow *ui;
     GameController &controller_;

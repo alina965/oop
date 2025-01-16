@@ -3,6 +3,8 @@
 #include <vector>
 #include <memory>
 #include "cell.h"
+#include "cellfactory.h"
+#include <string>
 
 class Field {
 public:
@@ -16,4 +18,5 @@ private:
     int rows_;
     int cols_;
     std::vector<std::vector<std::unique_ptr<Cell>>> grid_;
+    CellFactory<Cell, std::string, std::function<std::unique_ptr<Cell>()>> factory_;
 };

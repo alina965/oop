@@ -17,6 +17,7 @@ MainWindow::MainWindow(GameController &controller, View &view, QWidget *parent) 
     connect(ui->offline_mode_button, &QPushButton::clicked, this, &MainWindow::OnOfflineModeButtonClicked);
     connect(ui->load_universe_button, &QPushButton::clicked, this, &MainWindow::OnLoadUniverseButtonClicked);
     connect(ui->save_universe_button, &QPushButton::clicked, this, &MainWindow::OnSaveUniverseButtonClicked);
+    connect(ui->random_button, &QPushButton::clicked, this, &MainWindow::OnRandomButtonClicked);
 }
 
 MainWindow::~MainWindow() {
@@ -98,6 +99,11 @@ void MainWindow::OnSaveUniverseButtonClicked() {
     else {
         QMessageBox::critical(this, "Ошибка", "Не удалось сохранить вселенную.");
     }
+}
+
+void MainWindow::OnRandomButtonClicked() {
+    StopGame();
+    controller_.Random();
 }
 
 void MainWindow::StopGame() {

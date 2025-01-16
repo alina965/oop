@@ -27,6 +27,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="random_button">
+          <property name="text">
+           <string>Создать случайное поле</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="label">
           <property name="text">
            <string>Поменять размер:</string>
@@ -113,7 +120,7 @@
         <item>
          <widget class="QPushButton" name="offline_mode_button">
           <property name="text">
-           <string>начать оффлайн-режим</string>
+           <string>Начать оффлайн-режим</string>
           </property>
          </widget>
         </item>

@@ -18,6 +18,8 @@ public:
     bool LoadUniverse(QString filename);
     bool SaveUniverse(QString filename);
     bool IsRunning() const;
+    bool Random();
+    bool SetRules(std::unordered_set<int>& rules, QString& new_rules);
 private slots:
     void UpdateGame();
 private:

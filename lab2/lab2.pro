@@ -11,13 +11,14 @@ CONFIG += c++17
 SOURCES += \
     alivecell.cpp \
     cell.cpp \
-    cellfactory.cpp \
     deadcell.cpp \
     field.cpp \
+    filepopulator.cpp \
     gamecontroller.cpp \
     gameoflife.cpp \
     main.cpp \
     mainwindow.cpp \
+    randompopulator.cpp \
     view.cpp
 
 HEADERS += \
@@ -26,9 +27,12 @@ HEADERS += \
     cellfactory.h \
     deadcell.h \
     field.h \
+    filepopulator.h \
     gamecontroller.h \
     gameoflife.h \
     mainwindow.h \
+    populator.h \
+    randompopulator.h \
     view.h
 
 FORMS += \

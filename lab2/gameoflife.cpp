@@ -14,16 +14,12 @@ void GameOfLife::Update() {
             int alive_neighbors = CountAliveNeighbors(i, j);
             bool is_alive = field_.GetCell(i, j)->IsAlive();
 
-            if (is_alive) {
-                if (survival_rules_.find(alive_neighbors) != survival_rules_.end()) {
-                    new_field.ToggleCellState(i, j); // клетка остается живой
-                }
+            if (is_alive && (survival_rules_.find(alive_neighbors) != survival_rules_.end())) {
+                new_field.ToggleCellState(i, j); // клетка остается живой
             }
 
-            else {
-                if (birth_rules_.find(alive_neighbors) != birth_rules_.end()) {
-                    new_field.ToggleCellState(i, j); // оживляем клетку
-                }
+            else if (birth_rules_.find(alive_neighbors) != birth_rules_.end()) {
+                new_field.ToggleCellState(i, j); // оживляем клетку
             }
         }
     }
