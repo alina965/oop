@@ -13,6 +13,7 @@ class View : public QObject {
     Q_OBJECT
 public:
     explicit View(GameOfLife &game, QGraphicsScene *scene, QObject *parent = nullptr);
+    ~View();
     void Update();
     QGraphicsScene *GetScene();
     void DrawInitialField();

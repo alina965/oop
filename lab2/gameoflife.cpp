@@ -18,7 +18,7 @@ void GameOfLife::Update() {
                 new_field.ToggleCellState(i, j); // клетка остается живой
             }
 
-            else if (birth_rules_.find(alive_neighbors) != birth_rules_.end()) {
+            else if (!is_alive && birth_rules_.find(alive_neighbors) != birth_rules_.end()) {
                 new_field.ToggleCellState(i, j); // оживляем клетку
             }
         }

@@ -6,6 +6,11 @@ View::View(GameOfLife &game, QGraphicsScene *scene, QObject *parent) : QObject(p
     scene_->installEventFilter(this);
 }
 
+View::~View() {
+    scene_->clear();
+    cells_.clear();
+}
+
 void View::DrawInitialField() {
     scene_->clear();
     cells_.clear();
