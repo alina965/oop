@@ -29,4 +29,3 @@ CSV файл упорядочен по убыванию частоты. Разд
 - Subject<T> — управляет подписками (attach/detach) и уведомляет наблюдателей (notify).
 - PIMPL скрывает реализацию Subject (хранение наблюдателей в SubjectImpl<T>).
 - Готовые наблюдатели: ConsoleObserver<T> (вывод в консоль) и LoggingObserver<T> (запись в файл).
-- Поддержка любых типов: Subject<int>, Subject<string>, Subject<CustomEvent>.
